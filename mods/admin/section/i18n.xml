@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<messages>
+<!--
+/**
+ * Project: KaZoe
+ * File name: i18n.xml
+ * Description: Translations
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+    <msg xml:lang='fr' id='AddButton'		>Ajouter une nouvelle catégorie</msg>
+	<msg xml:lang='fr' id='AddTransButton'	>Ajouter une nouvelle traduction</msg>
+	<msg xml:lang='fr' id='ConfirmDelete'	>Êtes vous sûr de vouloir supprimer cette catégorie ?</msg>
+	<msg xml:lang='fr' id='InsertSuccess'	>Insertion réussi</msg>
+	<msg xml:lang='fr' id='DeleteSuccess'	>Suppression réussi</msg>
+	<msg xml:lang='fr' id='UpdateSuccess'	>Modification réussi</msg>
+	<msg xml:lang='fr' id='Forbidden'		>Vous n'avez pas les droits necessaires</msg>
+	<msg xml:lang='fr' id='ManageThis'		>Gérer les catégories de la section : </msg>
+	<msg xml:lang='fr' id='ButtonModify'	>Modifier</msg>
+	<msg xml:lang='fr' id='ButtonModifyTr'	>Modifier une traduction</msg>
+	<msg xml:lang='fr' id='ButtonModTitle'	>Modifier la traduction</msg>
+	<msg xml:lang='fr' id='ButtonDelete'	>Supprimer</msg>
+	<msg xml:lang='fr' id='ButtonDeleteC'	>Supprimer définitivement !</msg>
+	<msg xml:lang='fr' id='TranslationExist'>Tradution déjà existante</msg>
+	<msg xml:lang='fr' id='ConfirmDelTrans'	>Êtes vous sûr de vouloir supprimer cette traduction ?</msg>
+	<msg xml:lang='fr' id='FOREIGNKEYVIOLATION'>Cette section n'est surement pas vide. Suppression impossible!!!</msg>
+</messages>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<messages>
+<!--
+/**
+ * Project: KaZoe
+ * File name: i18n.xml
+ * Description: Translations
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+    
+	<msg xml:lang='en' id='SyntaxError'			>Syntax error</msg>
+	<msg xml:lang='en' id='PassInit'			>Password reset to </msg>
+	<msg xml:lang='en' id='AddRight'			>Add right</msg>
+	<msg xml:lang='en' id='DeleteRight'			>Remove right</msg>
+	<msg xml:lang='en' id='StaticPageRight'		>Modify page</msg>
+	<msg xml:lang='en' id='ButtonRightModify'	>Change right</msg>
+	<msg xml:lang='en' id='ButtonRightModifyXML'>Change right by XML</msg>
+	<msg xml:lang='en' id='ButtonResetPassword'	>Reset Password</msg>
+	<msg xml:lang='en' id='RteRight'			>Rich text editor</msg>
+	<msg xml:lang='en' id='AddRteRight'			>Autorized Rich text editor</msg>
+	<msg xml:lang='en' id='Save'				>Save</msg>
+	
+	<msg xml:lang='fr' id='SyntaxError'			>Erreur de syntaxe</msg>
+	<msg xml:lang='fr' id='PassInit'			>Password initialisé à </msg>
+	<msg xml:lang='fr' id='AddRight'			>Ajouter des droits</msg>
+	<msg xml:lang='fr' id='DeleteRight'			>Retirer des droits</msg>
+	<msg xml:lang='fr' id='StaticPageRight'		>Editer des pages</msg>
+	<msg xml:lang='fr' id='ButtonResetPassword'	>Reset Password</msg>
+	<msg xml:lang='fr' id='ButtonRightModify'	>Modifier les droits</msg>
+	<msg xml:lang='fr' id='RteRight'			>Edition de texte avancé</msg>
+	<msg xml:lang='fr' id='AddRteRight'			>Autoriser</msg>
+	<msg xml:lang='fr' id='ButtonRightModifyXML'>Modifier les droits par XML</msg>
+	<msg xml:lang='fr' id='Save'				>Sauver les changements</msg>
+	
+</messages>

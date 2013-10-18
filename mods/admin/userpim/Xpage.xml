@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--
+/**
+ * Project: KaZoe
+ * File name: Xpage.xml
+ * Description: Node page
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+    <title xml:lang="fr">Mes données personnelles</title>
+        <!-- We authorize MOD action, formular is completed, we send result to database, and continue -->
+    <ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY') == 'submit_mod') &amp;&amp; $Kz->canDo('section[@id=\'authorizations\']')">
+        <namefile>user_update</namefile>
+        <mode>mod</mode>
+    </ContentPhp>
+
+    <ContentForm history='no' test="$Kz->canDo('section')">
+        <dataset>kazoe_users</dataset>
+        <mode>mod</mode>
+        <return>submit_mod</return>
+        <query>
+            SELECT
+                name,
+                firstname,
+                email,
+                address,
+                phone,
+                mobile,
+                functions
+            FROM
+                kazoe_users
+            WHERE
+                _passwd=:USER_LOGIN;
+        </query>
+    </ContentForm>
+
+
+    <ContentStatic history='no'>
+        <namefile>error</namefile>
+    </ContentStatic>
+</node>

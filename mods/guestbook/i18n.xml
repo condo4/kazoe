@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<messages>
+	<msg xml:lang='en' id='TakeMsg'			>Take a message on the Guestbook</msg>
+	<msg xml:lang='en' id='Intro'			>Thank you for all messages.</msg>
+	<msg xml:lang='en' id='MailTag'			>[Guestbook]</msg>
+	<msg xml:lang='en' id='MailIntro'		>Message sent from guestbook</msg>
+</messages>

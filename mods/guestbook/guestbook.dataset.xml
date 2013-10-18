@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset xmlns:xml="http://www.w3.org/XML/1998/namespace">
+
+	<field name="id">                                                                                     
+		<widget_hidden />                                                                             
+	</field>
+
+	<field name="name">
+		<legend xml:lang="fr">Entrez votre nom</legend>
+		<widget_title size="80" />
+	</field>
+
+	<field name="email">
+		<legend xml:lang="fr">Entrez votre adresse électronique</legend>
+		<widget_title size="80" />
+	</field>
+
+	<field name="resume">
+		<legend xml:lang="fr">Et enfin, un commentaire :</legend>
+		<widget_text cols="80" rows="25" />
+	</field>
+
+	<field name="cryptogramme">
+		<legend xml:lang="fr">Sécurité :</legend>
+		<widget_captcha />
+	</field>
+</dataset>

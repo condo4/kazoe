@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<menu xmlns="http://kazoe.org.free.fr/xsd/Xmenu.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+    <item_dyn_base>
+        <query>SELECT meta, name FROM kazoe_sections WHERE secname = :BASE AND kazoe_sections.id IN (SELECT type FROM :{apptable} WHERE date_begin &lt; now() AND now() &lt; date_expire GROUP BY type HAVING count(*) > 0)</query>
+    </item_dyn_base>
+</menu>

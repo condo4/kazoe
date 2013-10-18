@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!--
+/**
+ * Project: KaZoe
+ * File name: kazoe_users.dataset.xml
+ * Description: dataset for user pim
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+	<field name="name">
+		<legend xml:lang="fr">Nom</legend>
+		<widget_title size="32" />
+	</field>
+
+	<field name="firstname">
+		<legend xml:lang="fr">Prénom</legend>
+		<widget_title size="32" />
+	</field>
+
+	<field name="email">
+		<legend xml:lang="fr">Adresse E-Mail</legend>
+		<widget_title size="32" />
+	</field>
+
+	<field name="address">
+		<legend xml:lang="fr">Adresse</legend>
+		<widget_text cols="80" rows="6" />
+	</field>
+
+	<field name="phone">
+		<legend xml:lang="fr">Numéro de téléphone</legend>
+		<widget_title size="16" />
+	</field>
+
+	<field name="mobile">
+		<legend xml:lang="fr">Numéro de portable</legend>
+		<widget_title size="16" />
+	</field>
+
+	<field name="functions">
+		<legend xml:lang="fr">Fonction</legend>
+		<widget_title size="80" />
+	</field>
+</dataset>

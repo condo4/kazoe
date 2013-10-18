@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+ <node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <!--
+/**
+ * Project: KaZoe
+ * File name: Xpage.xml
+ * Description: Node page
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+	<title xml:lang="fr">Autentification</title>
+
+	<ContentPhp history='no' cache='no' test='($Kz->getEnv("QUERY") == "disconnect")'>
+		<namefile>disconnect</namefile>
+	</ContentPhp>
+
+	<ContentPhp history='no' cache='no' test='($Kz->getEnv("USER_ID") != -1)'>
+		<namefile>intro</namefile>
+	</ContentPhp>
+
+	<ContentPhp history='no' cache='no' continue='yes' test='($Kz->getEnv("QUERY") == "submit_add")'>
+		<namefile>connect</namefile>
+	</ContentPhp>
+
+	<ContentForm history='no' cache='no' test='((isset($_SESSION["auth_counter"])?($_SESSION["auth_counter"]):(0)) &lt; 3)'>
+		<dataset>auth_simple</dataset>
+		<return>submit_add</return>
+	</ContentForm>
+
+	<ContentForm history='no' cache='no'>
+		<dataset>auth</dataset>
+		<return>submit_add</return>
+	</ContentForm>
+</node>

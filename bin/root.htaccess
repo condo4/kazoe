@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteCond %{REQUEST_METHOD}   "^(GET|POST)$"
+RewriteRule ^([a-z]*)-([a-z]*)-([a-z0-9\.]*)\.html(.*)$        index.php?meta=$1&lang=$2&idpp=$3&$4%{QUERY_STRING}  [L]
+

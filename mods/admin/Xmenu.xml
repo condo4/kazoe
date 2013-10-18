@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns="http://kazoe.org.free.fr/xsd/Xmenu.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--
+/**
+ * Project: KaZoe
+ * File name: Xmenu.xml
+ * Description: Menu node
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+	<item name="userpim" test="$Kz->canDo('section')">
+	<title xml:lang="fr">Mes données</title>
+	</item>
+	<item name="password" test="$Kz->canDo('section')">
+		<title xml:lang="fr">Mot de passe</title>
+	</item>
+	<item name="adminusers" test="$Kz->canDo('section[@id=\'adminusers\']')">
+		<title xml:lang="fr">Gestion utilisateurs</title>
+	</item>
+	<item name="section" test="$Kz->canDo('category')">
+		<title xml:lang="fr">Gestion des catégories</title>
+	</item>
+	<item name="errors" test="$Kz->canDo('errors')">
+		<title xml:lang="fr">Gestion des erreurs</title>
+	</item>
+	<item name="cache" test="$Kz->canDo('cache')">
+		<title xml:lang="fr">Gestion des caches</title>
+	</item>
+	<item name="test" test="$Kz->canDo('section')">
+		<title xml:lang="fr">Test du thème</title>
+	</item>
+</menu>

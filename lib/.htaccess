@@ -1,0 +1,5 @@
+
+<Files *.xml>
+deny from all
+</Files>
+

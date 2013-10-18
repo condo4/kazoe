@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<dataset xmlns:xml="http://www.w3.org/XML/1998/namespace">
+    
+ 	<field name="id">                                                                                     
+		<widget_hidden />                                                                             
+	</field>
+	
+	<field name="date_input">
+		<legend xml:lang="fr">Date de l'article</legend>
+		<widget_date default="now" range="-2 year; now" />
+	</field>
+	
+	<field name="date_begin">
+		<legend xml:lang="fr">Date de parution</legend>
+		<widget_date default="now" range="now; +1 year" />
+	</field>
+
+	<field name="date_expire">
+		<legend xml:lang="fr">Date d'expiration</legend>
+		<widget_date default="+2 month" range="now; +1 year" />
+	</field>
+
+	<field name="type">
+		<legend xml:lang="fr">Categorie</legend>
+		<widget_section src=":{base}"  />
+	</field>
+
+	<field name="title">
+		<legend xml:lang="fr">Titre</legend>
+		<widget_title size="80" />
+	</field>
+
+	<field name="info">
+		<legend xml:lang="fr">Article</legend>
+		<widget_text cols="130" rows="60"  class='ckeditor' id="rte" />
+	</field>
+
+</dataset>

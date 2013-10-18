@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+ <!--
+/**
+ * Project: KaZoe
+ * File name: Xpage.xml
+ * Description: Node page
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+	<title xml:lang='en'>Guestbook</title>
+
+	<!-- Query is send_mail -->
+	<ContentDynamic continue='yes' test="$Kz->getEnv('QUERY')=='send_mail'">
+		<template>guestbook_sendmail</template>
+		<section>guestbook_sendmail</section>
+		<query>
+			SELECT 
+				id,
+				name
+			FROM 
+				:{apptable}
+			WHERE
+				id = :KEY
+		</query>
+	</ContentDynamic>
+	<ContentPhp continue='yes' test="($Kz->getEnv('QUERY')=='submit_mail')">
+		<namefile>guestbook_sendmail</namefile>
+	</ContentPhp>
+
+	<!-- Query to add is asked, display add fromular, and stop -->
+	<ContentForm test="($Kz->getEnv('QUERY')=='add')">
+		<dataset>guestbook</dataset>
+		<mode>add</mode>
+		<return>submit_add</return>
+	</ContentForm>
+
+	<!-- Formular is completed, we send result to database, and continue -->
+	<ContentPhp continue="yes" test="($Kz->getEnv('QUERY') == 'submit_add')">
+		<namefile>guestbook_insert</namefile>
+		<mode>add</mode>
+	</ContentPhp>
+
+	<!-- ____________________________DEL____________________________ -->
+	<!-- 1) DEL is asked, we need confirmation -->
+	<!-- TITILE -->
+	<ContentPhp continue="yes" test="($Kz->getEnv('QUERY')=='del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))">
+		<namefile>del_confirm</namefile>
+	</ContentPhp>
+	<!-- ITEM -->
+	<ContentDynamic test="($Kz->getEnv('QUERY')=='del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))">
+		<template>guestbook</template>
+		<section>guestbook</section>
+		<query>
+			SELECT 
+				id,
+				email,
+				name,
+				date_input,
+				comment
+			FROM 
+				:{apptable}
+			WHERE
+				id = :ID
+			ORDER BY date_input DESC
+		</query>
+	</ContentDynamic>
+
+	<!-- We authorize DEL action, DEL is confirme, we delete entry -->
+	<ContentPhp test="($Kz->getEnv('QUERY') == 'submit_del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))" continue="yes">
+		<namefile>guestbook_delete</namefile>
+	</ContentPhp>
+
+
+	<ContentPhp continue="yes">
+		<namefile>intro</namefile>
+	</ContentPhp>
+
+	<ContentDynamic>
+		<section>guestbook</section>
+		<template>guestbook</template>
+		<limit>25</limit>
+		<query>
+			SELECT 
+				id,
+				email,
+				name,
+				date_input,
+				comment
+			FROM 
+				:{apptable}
+			ORDER BY date_input DESC
+		</query>
+		<query_counter>
+			SELECT 
+				count(*)
+			FROM 
+				:{apptable}
+		</query_counter>
+	</ContentDynamic>
+</node>

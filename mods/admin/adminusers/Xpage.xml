@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--
+/**
+ * Project: KaZoe
+ * File name: Xpage.xml
+ * Description: Node page
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+	<title xml:lang="fr">Gestion des utilisateurs</title>
+
+	<ContentPhp history='no' test="!$Kz->canDo('section[@id=\':{base}\']')">
+		<namefile>error</namefile>
+	</ContentPhp>
+
+	<!-- We authorize RMOD and RMOD is asked -->
+	<ContentPhp history='no' test="($Kz->getEnv('QUERY') == 'rmod') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'rmod\']'))">
+		<namefile>user_perms</namefile>
+	</ContentPhp>
+
+	<!-- We authorize RRAW and RRAW is asked -->
+	<ContentForm history='no' test="($Kz->getEnv('QUERY')=='rraw') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'rraw\']'))">
+		<dataset>kazoe_users_perms</dataset>
+		<return>submit_rraw</return>
+		<query>
+			SELECT
+				id,
+				_properties
+			FROM
+				kazoe_passwd
+			WHERE
+				kazoe_passwd.id=:ID
+			AND
+				kazoe_passwd._owner =ANY(:SCHILD)
+		</query>
+	</ContentForm>
+
+	<!-- We authorize RMOD action, formular is completed, we send result to database, and continue -->
+	<ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY') == 'submit_rraw') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'rraw\']'))">
+		<namefile>user_perms_updateraw</namefile>
+	</ContentPhp>
+
+	<!-- We authorize ADD action, query to add is asked, display add fromular, and stop -->
+	<ContentForm history='no' test="($Kz->getEnv('QUERY')=='add') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']'))">
+		<dataset>kazoe_users</dataset>
+		<return>submit_add</return>
+	</ContentForm>
+
+	<!-- We authorize ADD action, we display button, and continue -->
+	<ContentPhp history='no' continue='yes' test="$Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']')">
+		<namefile>add_button</namefile>
+	</ContentPhp>
+
+	<!-- We authorize ADD action, formular is completed, we send result to database, and continue -->
+	<ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY') == 'submit_add') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']'))">
+		<namefile>user_insert</namefile>
+		<mode>add</mode>
+	</ContentPhp>
+
+
+	<!-- We authorize ResetPassWord action, formular is completed, we send result to database, and continue -->
+	<ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY') == 'reset_password') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'rpw\']'))">
+		<namefile>user_reset</namefile>
+		<mode>add</mode>
+	</ContentPhp>
+
+	<!-- We authorize DEL action, DEL is asked, we need confirmation -->
+	<!-- TITILE -->
+	<ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY')=='del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))">
+		<namefile>del_confirm</namefile>
+	</ContentPhp>
+	<!-- ITEM -->
+	<ContentDynamic history='no' test="($Kz->getEnv('QUERY')=='del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))">
+		<template>user</template>
+		<query>
+			SELECT
+				kazoe_passwd.id AS id,
+				kazoe_passwd.login AS login,
+				kazoe_users.name || ' ' || kazoe_users.firstname AS name
+			FROM
+				kazoe_passwd
+				JOIN kazoe_users ON kazoe_passwd.login = kazoe_users._passwd
+			WHERE
+				kazoe_passwd.id = :ID
+			AND
+				kazoe_passwd._owner =ANY(:SCHILD)
+		</query>
+	</ContentDynamic>
+
+	<!-- We authorize MOD and MOD is asked -->
+	<ContentForm history='no' test="($Kz->getEnv('QUERY')=='mod') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))">
+		<dataset>kazoe_users</dataset>
+		<return>submit_mod</return>
+		<query>
+			SELECT
+				kazoe_passwd.id,
+				kazoe_passwd.login,
+				name,
+				firstname,
+				email,
+				address,
+				phone,
+				mobile,
+				functions
+			FROM
+				kazoe_users
+				JOIN
+				kazoe_passwd
+				ON
+				(kazoe_passwd.login = kazoe_users._passwd)
+			WHERE
+				kazoe_passwd.id=:ID
+			AND
+				kazoe_passwd._owner =ANY(:SCHILD)
+
+		</query>
+	</ContentForm>
+
+	<!-- We authorize MOD action, formular is completed, we send result to database, and continue -->
+	<ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY') == 'submit_mod') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))">
+		<namefile>user_update</namefile>
+	</ContentPhp>
+
+	<!-- We authorize DEL action, DEL is confirme, we delete entry -->
+	<ContentPhp history='no' test="($Kz->getEnv('QUERY') == 'submit_del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))" continue="yes">
+		<namefile>user_delete</namefile>
+	</ContentPhp>
+
+	<!-- We display tree users -->
+	<ContentPhp history='no' test="$Kz->canDo('section[@id=\':{base}\']')" continue="yes">
+		<namefile>user_tree</namefile>
+	</ContentPhp>
+
+	<!-- Else We display the page  -->
+	<ContentDynamic history='no' test="$Kz->canDo('section[@id=\':{base}\']')">
+		<template>user</template>
+		<limit>10</limit>
+		<query>
+			SELECT
+				kazoe_passwd.id AS id,
+				kazoe_passwd.login AS login,
+				kazoe_users.name || ' ' || kazoe_users.firstname AS name
+			FROM
+				kazoe_passwd
+				JOIN kazoe_users ON kazoe_passwd.login = kazoe_users._passwd
+			AND
+				kazoe_passwd._owner = ANY(:SCHILD)
+			ORDER BY
+				login DESC
+		</query>
+		<query_counter>
+			SELECT
+				count(*)
+			FROM
+				kazoe_passwd
+				JOIN kazoe_users ON kazoe_passwd.login = kazoe_users._passwd
+			AND
+				kazoe_passwd._owner = ANY(:SCHILD)
+		</query_counter>
+	</ContentDynamic>
+</node>

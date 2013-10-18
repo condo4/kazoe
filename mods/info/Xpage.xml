@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+ <!--
+/**
+ * Project: KaZoe
+ * File name: Xpage.xml
+ * Description: Node page
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+	<title xml:lang='en'>Information</title>
+	
+	<!-- Query is send_mail -->
+	<ContentDynamic continue='yes' test="$Kz->getEnv('QUERY')=='send_mail'">
+		<template>info_sendmail</template>
+		<section>info_sendmail</section>
+		<query>
+			SELECT
+				name || ' ' || firstname AS name,
+				functions
+			FROM
+				kazoe_passwd
+				JOIN kazoe_users    ON kazoe_users._passwd = kazoe_passwd.login
+			WHERE
+				kazoe_passwd.id = :KEY
+		</query>
+	</ContentDynamic>
+	<ContentPhp continue='yes' test="($Kz->getEnv('QUERY')=='submit_mail')">
+		<namefile>info_sendmail</namefile>
+	</ContentPhp>
+
+
+
+	<!-- ____________________________ADD____________________________ -->
+	<!-- We authorize ADD action, we display button, and continue -->
+	<ContentPhp continue='yes' test="$Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']')">
+		<namefile>add_button</namefile>
+	</ContentPhp>
+
+	<!-- 1) Display add formular -->
+	<ContentForm test="($Kz->getEnv('QUERY')=='add') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']'))">
+		<script>kazoe/lib/tinymce/tinymce.min.js</script>
+		<script>kazoe/lib/tinymce_config.php</script>
+		<dataset>info</dataset>
+		<return>submit_add</return>
+	</ContentForm>
+
+	<!-- 2) We send result to database, and continue -->
+	<ContentPhp continue="yes" test="($Kz->getEnv('QUERY') == 'submit_add') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']'))">
+		<namefile>info_insert</namefile>
+	</ContentPhp>
+
+
+
+	<!-- ____________________________DEL____________________________ -->
+	<!-- 1) DEL is asked, we need confirmation -->
+	<!-- TITILE -->
+	<ContentPhp continue="yes" test="($Kz->getEnv('QUERY')=='del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))">
+		<namefile>del_confirm</namefile>
+	</ContentPhp>
+	<!-- ITEM -->
+	<ContentDynamic test="($Kz->getEnv('QUERY')=='del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))">
+		<template>info</template>
+		<query>
+			SELECT
+				:{apptable}.id,
+				:{apptable}.title,
+				:{apptable}.date_input,
+				:{apptable}.info,
+				kazoe_users.id AS contact,
+				kazoe_users.name || ' ' || kazoe_users.firstname AS name,
+				kazoe_users.functions,
+				COALESCE(title.title,titledef.title) AS section,
+				CASE WHEN :{apptable}._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+			FROM
+				:{apptable}
+				JOIN kazoe_passwd   ON :{apptable}._owner = kazoe_passwd.id
+				JOIN kazoe_users    ON kazoe_users._passwd = kazoe_passwd.login
+				JOIN :{apptable}_sections ON :{apptable}.type = :{apptable}_sections.id
+				JOIN :{apptable}_sections_titles AS title     ON (title.sectionid = :{apptable}_sections.id     AND title.lang = :LANG)
+				JOIN :{apptable}_sections_titles AS titledef  ON (titledef.sectionid = :{apptable}_sections.id  AND titledef.lang = :LANG_DEF)
+			WHERE
+				:{apptable}.id = :ID
+		</query>
+	</ContentDynamic>
+
+	<!-- 2) DEL is confirme, we delete entry -->
+	<ContentPhp test="($Kz->getEnv('QUERY') == 'submit_del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))" continue="yes">
+		<namefile>info_delete</namefile>
+	</ContentPhp>
+
+
+
+
+
+	<!-- ____________________________UPDATE____________________________ -->
+	<!-- 1) Modification is ask, display formular -->
+	<ContentForm test="($Kz->getEnv('QUERY')=='mod') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))">
+		<script>kazoe/lib/tinymce/tinymce.min.js</script>
+		<script>kazoe/lib/tinymce_config.php</script>
+		<dataset>info</dataset>
+		<return>submit_mod</return>
+		<query>
+			SELECT
+				id,type,title,date_begin,date_expire,info,_owner
+			FROM
+				:{apptable}
+			WHERE
+				id = :ID
+		</query>
+	</ContentForm>
+
+	<!-- 2) We send result to database, and continue -->
+	<ContentPhp continue="yes" test="($Kz->getEnv('QUERY') == 'submit_mod') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))">
+		<namefile>info_update</namefile>
+	</ContentPhp>
+
+
+
+
+	<!-- ____________________________DISPLAY____________________________ -->
+	<!-- If SECTION is set, we display the page with filter -->
+	<ContentDynamic test="$Kz->getEnv('SECTION') != ''">
+		<template>info</template>
+		<limit>10</limit>
+		<query>
+			SELECT
+				:{apptable}.id,
+				:{apptable}.title,
+				:{apptable}.date_input,
+				:{apptable}.info,
+				kazoe_users.id AS contact,
+				kazoe_users.name || ' ' || kazoe_users.firstname AS name,
+				kazoe_users.functions,
+				COALESCE(title.title,titledef.title) AS section,
+				CASE WHEN :{apptable}._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+			FROM
+				:{apptable}
+				JOIN kazoe_passwd   ON :{apptable}._owner = kazoe_passwd.id
+				JOIN kazoe_users    ON kazoe_users._passwd = kazoe_passwd.login
+				JOIN :{apptable}_sections ON :{apptable}.type = :{apptable}_sections.id
+				JOIN :{apptable}_sections_titles AS title     ON (title.sectionid = :{apptable}_sections.id     AND title.lang = :LANG)
+				JOIN :{apptable}_sections_titles AS titledef  ON (titledef.sectionid = :{apptable}_sections.id  AND titledef.lang = :LANG_DEF)
+			WHERE
+				:{apptable}.date_begin &lt; now() AND
+				now() &lt; :{apptable}.date_expire AND
+				:{apptable}_sections.name = :{section}
+			ORDER BY
+				:{apptable}.date_input DESC
+		</query>
+		<query_counter>
+			SELECT
+				count(*)
+			FROM
+				:{apptable}
+				JOIN kazoe_passwd   ON :{apptable}._owner = kazoe_passwd.id
+				JOIN kazoe_users    ON kazoe_users._passwd = kazoe_passwd.login
+				JOIN :{apptable}_sections ON :{apptable}.type = :{apptable}_sections.id
+			WHERE
+				:{apptable}.date_begin &lt; now() AND
+				now() &lt; :{apptable}.date_expire AND
+				:{apptable}_sections.name = :{section}
+		</query_counter>
+	</ContentDynamic>
+
+
+	
+	<!-- Else We display the page without filter -->
+	<ContentDynamic test="$Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']')">
+		<template>info_full</template>
+		<limit>10</limit>
+		<query>
+			SELECT
+				:{apptable}.id,
+				:{apptable}.title,
+				:{apptable}.date_input,
+				:{apptable}.info,
+				kazoe_users.id AS contact,
+				kazoe_users.name || ' ' || kazoe_users.firstname AS name,
+				kazoe_users.functions,
+				COALESCE(title.title,titledef.title) AS section,
+				:{apptable}.date_begin &lt; now() AND now() &lt; :{apptable}.date_expire AS expired,
+				CASE WHEN :{apptable}._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+			FROM
+				:{apptable}
+				JOIN kazoe_passwd   ON :{apptable}._owner = kazoe_passwd.id
+				JOIN kazoe_users    ON kazoe_users._passwd = kazoe_passwd.login
+				JOIN :{apptable}_sections ON :{apptable}.type = :{apptable}_sections.id
+				JOIN :{apptable}_sections_titles AS title     ON (title.sectionid = :{apptable}_sections.id     AND title.lang = :LANG)
+				JOIN :{apptable}_sections_titles AS titledef  ON (titledef.sectionid = :{apptable}_sections.id  AND titledef.lang = :LANG_DEF)
+			ORDER BY
+				:{apptable}.date_input DESC
+		</query>
+		<query_counter>
+			SELECT
+				count(*)
+			FROM
+				:{apptable}
+		</query_counter>
+	</ContentDynamic>
+
+
+	<!-- Else We display the page without filter -->
+	<ContentDynamic>
+		<template>info</template>
+		<limit>10</limit>
+		<query>
+			SELECT
+				:{apptable}.id,
+				:{apptable}.title,
+				:{apptable}.date_input,
+				:{apptable}.info,
+				kazoe_users.id AS contact,
+				kazoe_users.name || ' ' || kazoe_users.firstname AS name,
+				kazoe_users.functions,
+				COALESCE(title.title,titledef.title) AS section,
+				CASE WHEN :{apptable}._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+			FROM
+				:{apptable}
+				JOIN kazoe_passwd   ON :{apptable}._owner = kazoe_passwd.id
+				JOIN kazoe_users    ON kazoe_users._passwd = kazoe_passwd.login
+				JOIN :{apptable}_sections ON :{apptable}.type = :{apptable}_sections.id
+				JOIN :{apptable}_sections_titles AS title     ON (title.sectionid = :{apptable}_sections.id     AND title.lang = :LANG)
+				JOIN :{apptable}_sections_titles AS titledef  ON (titledef.sectionid = :{apptable}_sections.id  AND titledef.lang = :LANG_DEF)
+			WHERE
+				:{apptable}.date_begin &lt; now() AND
+				now() &lt; :{apptable}.date_expire
+
+			ORDER BY
+				:{apptable}.date_input DESC
+		</query>
+		<query_counter>
+			SELECT
+				count(*)
+			FROM
+				:{apptable}
+			WHERE
+				:{apptable}.date_begin &lt; now() AND
+				now() &lt; :{apptable}.date_expire
+		</query_counter>
+	</ContentDynamic>
+</node>

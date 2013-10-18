@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--
+/**
+ * Project: KaZoe
+ * File name: Xpage.xml
+ * Description: Node page
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+	<title xml:lang="fr">Gestion des erreurs</title>
+
+	<ContentPhp history='no' test="$Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']')" continue="yes">
+		<namefile>errors_delete_allbtn</namefile>
+	</ContentPhp>
+	
+	<ContentPhp history='no' test="($Kz->getEnv('QUERY') == 'delall') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))" continue="yes">
+		<namefile>errors_delete_all</namefile>
+	</ContentPhp>
+
+
+	<!-- We authorize DEL action, DEL is confirme, we delete entry -->
+	<ContentPhp history='no' test="($Kz->getEnv('QUERY') == 'del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))" continue="yes">
+		<namefile>errors_delete</namefile>
+	</ContentPhp>
+
+
+	<ContentDynamic history='no' cache="no" test="($Kz->getEnv('QUERY') == 'see') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'see\']'))">
+		<section>errors</section>
+		<template>errors</template>
+		<query>
+			SELECT
+				id,
+				datetime,
+				level,
+				message,
+				file,
+				line,
+				occure,
+				backtrace
+			FROM
+				kazoe_log_errors
+			WHERE
+				id = :ID
+		</query>
+	</ContentDynamic>
+
+	<ContentDynamic history='no' cache="no" test="($Kz->canDo('section[@id=\':{base}\']'))">
+		<section>errors</section>
+		<template>errors</template>
+		<limit>25</limit>
+		<query>
+			SELECT
+				id,
+				datetime,
+				level,
+				message,
+				file,
+				line,
+				occure
+			FROM
+				kazoe_log_errors
+			ORDER BY datetime DESC
+		</query>
+		<query_counter>
+			SELECT
+				count(*)
+			FROM
+				kazoe_log_errors
+		</query_counter>
+	</ContentDynamic>
+</node>

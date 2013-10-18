@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!--
+/**
+ * Project: KaZoe
+ * File name: Xpage.xml
+ * Description: Node page
+ *
+ * @author Fabien Proriol Copyright (C) 2009.
+ *
+ * @see The GNU Public License (GPL)
+ *
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
+ -->
+    <title xml:lang="fr">Gestion des catégories</title>
+
+	<!-- First we display page to ask which section familly we want to work on -->
+	<ContentPhp test="$Kz->getEnv('SECTION') == ''">
+		<namefile>section_listtables</namefile>
+	</ContentPhp>
+
+
+	<!-- FAMILLY IS SET !!! -->
+	<!-- Display selected familly -->
+	<ContentPhp continue='yes' test="($Kz->getEnv('SECTION') != '') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+		<namefile>section_dispname</namefile>
+	</ContentPhp>
+	
+	<!-- INSERT -->
+		<!-- Display button to add a section -->
+		<ContentPhp continue='yes' test="$Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']') and ($Kz->getEnv('SECTION') != '')">
+			<namefile>section_addbutton</namefile>
+		</ContentPhp>
+		
+		<!-- Display add formular -->
+		<ContentForm test="($Kz->getEnv('QUERY')=='add') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']'))">
+			<dataset>section</dataset>
+			<return>submit_add</return>
+		</ContentForm>
+	
+		<!-- Make query to create section -->
+		<ContentPhp continue="yes" test="($Kz->getEnv('QUERY') == 'submit_add') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'add\']'))">
+			<namefile>section_insert</namefile>
+		</ContentPhp>
+
+	<!-- UPDATE -->
+		<!-- 1) Modification is ask, display formular -->
+		<ContentForm test="($Kz->getEnv('QUERY')=='mod') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))">
+			<dataset>section</dataset>
+			<return>submit_mod</return>
+			<query>
+				SELECT
+					kazoe_sections.id,
+					kazoe_sections.name,
+					CASE WHEN kazoe_sections._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+				FROM
+					kazoe_sections
+				WHERE
+					id = :ID
+			</query>
+		</ContentForm>
+
+		<!-- 2) We send result to database, and continue -->
+		<ContentPhp continue="yes" test="($Kz->getEnv('QUERY') == 'submit_mod') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))">
+			<namefile>section_update</namefile>
+		</ContentPhp>
+	
+	<!-- DEL -->
+		<!-- DEL is asked, we need confirmation -->
+		<ContentPhp continue="yes" test="($Kz->getEnv('QUERY')=='del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))">
+			<namefile>section_delconfirm</namefile>
+		</ContentPhp>
+
+		<ContentDynamic test="($Kz->getEnv('SECTION') != '')  &amp;&amp; ($Kz->getEnv('QUERY') == 'del')">
+			<template>section</template>
+			<query>
+				SELECT
+					kazoe_sections.id,
+					kazoe_sections.name,
+					COALESCE(title.title,titledef.title) AS title,
+					CASE WHEN kazoe_sections._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+				FROM
+					kazoe_sections
+					JOIN kazoe_sections_titles AS title     ON (title.sectionid = kazoe_sections.id     AND title.lang = :LANG)
+					JOIN kazoe_sections_titles AS titledef  ON (titledef.sectionid = kazoe_sections.id  AND titledef.lang = :LANG_DEF)
+				WHERE
+					kazoe_sections.id = :ID
+			</query>
+		</ContentDynamic>
+
+		<!-- Make query to delete element -->
+		<ContentPhp test="($Kz->getEnv('QUERY') == 'submit_del') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'del\']'))" continue="yes">
+			<namefile>section_delete</namefile>
+		</ContentPhp>
+		
+
+
+<!-- _____________________ TRANSLATIONS_____________________ -->
+	<!-- Display selected translation -->
+	<ContentPhp continue='yes' test="($Kz->getEnv('SECTION') != '') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+		<namefile>section_translation_dispname</namefile>
+	</ContentPhp>
+
+	<!-- INSERT -->
+		<!-- Display button add translation -->
+		<ContentPhp continue='yes' test="($Kz->getEnv('SECTION') != '') &amp;&amp; ($Kz->getEnv('QUERY')=='modtranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<namefile>section_translation_addbutton</namefile>
+		</ContentPhp>
+		
+		<!-- Display add forms -->
+		<ContentForm test="($Kz->getEnv('QUERY')=='addtranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<dataset>section_translation</dataset>
+			<return>submit_addtranslation</return>
+		</ContentForm>
+		
+		<!-- Make query to insert new translation -->
+		<ContentPhp continue='yes' test="($Kz->getEnv('SECTION') != '') &amp;&amp; ($Kz->getEnv('QUERY')=='submit_addtranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<namefile>section_translation_insert</namefile>
+		</ContentPhp>
+		
+
+	<!-- UPDATE -->
+		<!-- Display mod forms -->
+		<ContentForm test="($Kz->getEnv('QUERY')=='submit_modtranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<dataset>section_translation</dataset>
+			<return>submit_modtranslationupdate</return>
+			<query>
+				SELECT
+					id,
+					lang,
+					title,
+					_owner
+				FROM
+					kazoe_sections_titles
+				WHERE
+					id = :ID
+			</query>
+		</ContentForm>
+		
+		<!-- Make query to update database -->
+		<ContentPhp continue="yes" test="($Kz->getEnv('QUERY') == 'submit_modtranslationupdate') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<namefile>section_translation_update</namefile>
+		</ContentPhp>
+	
+	<!-- DELETE -->
+		<!-- Ask confirmation -->
+		<ContentPhp continue="yes" test="($Kz->getEnv('QUERY')=='deltranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<namefile>section_translation_delconfirm</namefile>
+		</ContentPhp>
+
+		<!-- Display element to confirm -->
+		<ContentDynamic test="($Kz->getEnv('QUERY')=='deltranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<template>section_translation</template>
+			<query>
+				SELECT
+					kazoe_sections_titles.id,
+					kazoe_sections_titles.lang,
+					kazoe_sections_titles.title,
+					CASE WHEN kazoe_sections_titles._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+				FROM
+					kazoe_sections
+					JOIN kazoe_sections_titles ON (kazoe_sections_titles.sectionid = kazoe_sections.id)
+				WHERE
+					kazoe_sections_titles.id = :ID
+			</query>
+		</ContentDynamic>
+
+		<!-- Make query to delete element -->
+		<ContentPhp test="($Kz->getEnv('QUERY') == 'submit_deltranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))" continue="yes">
+			<namefile>section_translation_delete</namefile>
+		</ContentPhp>
+
+	<!-- DISPLAY -->
+		<!-- Display all translation for this section -->
+		<ContentDynamic test="($Kz->getEnv('SECTION') != '') &amp;&amp; ($Kz->getEnv('QUERY')=='modtranslation') &amp;&amp; ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'modtranslation\']'))">
+			<template>section_translation</template>
+			<limit>10</limit>
+			<query>
+				SELECT
+					kazoe_sections_titles.id,
+					kazoe_sections_titles.lang,
+					kazoe_sections_titles.title,
+					CASE WHEN kazoe_sections_titles._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+				FROM
+					kazoe_sections
+					JOIN kazoe_sections_titles ON (kazoe_sections_titles.sectionid = kazoe_sections.id)
+				WHERE
+					kazoe_sections.id = :ID
+			</query>
+			<query_counter>
+				SELECT
+					count(*)
+				FROM
+					kazoe_sections
+					JOIN kazoe_sections_titles ON (kazoe_sections_titles.sectionid = kazoe_sections.id)
+				WHERE
+					kazoe_sections.id = :ID
+			</query_counter>
+		</ContentDynamic>
+
+	<!-- We display all existing section for this familly -->
+	<ContentDynamic test="$Kz->getEnv('SECTION') != ''">
+		<template>section</template>
+		<limit>20</limit>
+		<query>
+			SELECT
+				kazoe_sections.id,
+				kazoe_sections.name,
+				COALESCE(title.title,titledef.title) AS title,
+				CASE WHEN kazoe_sections._owner= ANY(:SCHILD) THEN 'True' ELSE 'False' END AS _permitions
+			FROM
+				kazoe_sections
+				JOIN kazoe_sections_titles AS title     ON (title.sectionid = kazoe_sections.id     AND title.lang = :LANG)
+				JOIN kazoe_sections_titles AS titledef  ON (titledef.sectionid = kazoe_sections.id  AND titledef.lang = :LANG_DEF)
+			WHERE
+				kazoe_sections.secname = :{section}
+		</query>
+		<query_counter>
+			SELECT
+				count(*)
+			FROM
+				kazoe_sections
+				JOIN kazoe_sections_titles AS title     ON (title.sectionid = kazoe_sections.id     AND title.lang = :LANG)
+				JOIN kazoe_sections_titles AS titledef  ON (titledef.sectionid = kazoe_sections.id  AND titledef.lang = :LANG_DEF)
+			WHERE
+				kazoe_sections.secname = :{section}
+		</query_counter>
+	</ContentDynamic>
+	
+</node>

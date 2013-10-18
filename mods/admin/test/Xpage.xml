@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<node xmlns="http://kazoe.org.free.fr/xsd/Xpages.xsd" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://kazoe.org.free.fr/xsd/Xpages.xsd ../../../lib/xsd/Xpage.xsd ">
+    <title xml:lang="fr">Test du thème</title>
+    <ContentStatic>
+        <namefile mltlng='yes'>page</namefile>
+    </ContentStatic>
+</node>

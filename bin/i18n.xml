@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<messages>
+	<msg xml:lang='en' id='AddButton'		>Add</msg>
+	<msg xml:lang='en' id='ConfirmDelete'	>Are you sure ?</msg>
+	<msg xml:lang='en' id='InsertSuccess'	>Add successful.</msg>
+	<msg xml:lang='en' id='DeleteSuccess'	>Del successful.</msg>
+	<msg xml:lang='en' id='UpdateSuccess'	>Modify successful.</msg>
+	<msg xml:lang='en' id='Forbidden'		>Forbidden access !!!</msg>
+	<msg xml:lang='en' id='ButtonModify'	>Modify</msg>
+	<msg xml:lang='en' id='ButtonDelete'	>Delete</msg>
+	<msg xml:lang='en' id='ButtonDeleteC'	>Delete!</msg>
+	
+	<msg xml:lang='fr' id='AddButton'		>Ajouter</msg>
+	<msg xml:lang='fr' id='ConfirmDelete'	>Êtes vous sur ?</msg>
+	<msg xml:lang='fr' id='InsertSuccess'	>Insertion réussi</msg>
+	<msg xml:lang='fr' id='DeleteSuccess'	>Suppression réussi</msg>
+	<msg xml:lang='fr' id='UpdateSuccess'	>Modification réussi</msg>
+	<msg xml:lang='fr' id='Forbidden'		>Accès interdit !!!</msg>
+	<msg xml:lang='fr' id='ButtonModify'	>Modifier</msg>
+	<msg xml:lang='fr' id='ButtonDelete'	>Supprimer</msg>
+	<msg xml:lang='fr' id='ButtonDeleteC'	>Supprimer !</msg>
+	
+	<msg xml:lang='en' id='month_01'		>January</msg>
+	<msg xml:lang='en' id='month_02'		>February</msg>
+	<msg xml:lang='en' id='month_03'		>March</msg>
+	<msg xml:lang='en' id='month_04'		>April</msg>
+	<msg xml:lang='en' id='month_05'		>May</msg>
+	<msg xml:lang='en' id='month_06'		>June</msg>
+	<msg xml:lang='en' id='month_07'		>July</msg>
+	<msg xml:lang='en' id='month_08'		>August</msg>
+	<msg xml:lang='en' id='month_09'		>September</msg>
+	<msg xml:lang='en' id='month_10'		>October</msg>
+	<msg xml:lang='en' id='month_11'		>November</msg>
+	<msg xml:lang='en' id='month_12'		>December</msg>
+	
+	<msg xml:lang='fr' id='month_01'		>Janvier</msg>
+	<msg xml:lang='fr' id='month_02'		>Février</msg>
+	<msg xml:lang='fr' id='month_03'		>Mars</msg>
+	<msg xml:lang='fr' id='month_04'		>Avril</msg>
+	<msg xml:lang='fr' id='month_05'		>Mai</msg>
+	<msg xml:lang='fr' id='month_06'		>Juin</msg>
+	<msg xml:lang='fr' id='month_07'		>Juillet</msg>
+	<msg xml:lang='fr' id='month_08'		>Août</msg>
+	<msg xml:lang='fr' id='month_09'		>Septembre</msg>
+	<msg xml:lang='fr' id='month_10'		>Octobre</msg>
+	<msg xml:lang='fr' id='month_11'		>Novembre</msg>
+	<msg xml:lang='fr' id='month_12'		>Décembre</msg>
+
+	<msg xml:lang='en' id='GlobalError'		>Sorry, an error occured, a message was send to the webmaster, this problem will be fix in few days.</msg>
+	<msg xml:lang='fr' id='GlobalError'		>Nous sommes désolés, une erreur est survenu; un message a été envoyer à l'administrateur pour qu'il corrige ce problème. Veuillez réessayer plus tard.</msg>
+	
+	<msg xml:lang='en' id='Subject'			>Subject</msg>
+	<msg xml:lang='en' id='Message'			>Message</msg>
+	<msg xml:lang='en' id='Send'			>Send</msg>
+	<msg xml:lang='en' id='Name'			>Name</msg>
+	<msg xml:lang='en' id='Email'			>E-mail address</msg>
+	<msg xml:lang='en' id='Security'		>Security:</msg>
+	<msg xml:lang='en' id='SecurityMsg'		>Before conttinue, write the previous code here:</msg>
+	<msg xml:lang='en' id='BadCrypto'		>You made mistake in the security code!!!</msg>
+	<msg xml:lang='en' id='SendTitle'		>Send a message</msg>
+	<msg xml:lang='en' id='MailSuccess'		>Your message was send successfully</msg>
+	<msg xml:lang='en' id='InvalidAddress'	>To send a message, your e-mail address must be valide !!!</msg>
+	
+	<msg xml:lang='fr' id='Subject'			>Sujet</msg>
+	<msg xml:lang='fr' id='Message'			>Corps du message</msg>
+	<msg xml:lang='fr' id='Send'			>Envoyer</msg>
+	<msg xml:lang='fr' id='Name'			>Votre nom et prénom</msg>
+	<msg xml:lang='fr' id='Email'			>Votre adresse e-mail</msg>
+	<msg xml:lang='fr' id='Security'		>Sécurité :</msg>
+	<msg xml:lang='fr' id='SecurityMsg'		>Avant de valider recopiez le code précédent ici :</msg>
+	<msg xml:lang='fr' id='BadCrypto'		>Vous avez fait une erreur dans le code de sécurité</msg>
+	<msg xml:lang='fr' id='SendTitle'		>Envoyer un message</msg>
+	<msg xml:lang='fr' id='MailSuccess'		>Votre message à bien été envoyé</msg>
+	<msg xml:lang='fr' id='InvalidAddress'	>Pour envoyer un e-mail, votre adresse e-mail doit être valide !!!</msg>
+	
+	<msg xml:lang='fr' id='EditPage'		>Editer cette page</msg>
+	<msg xml:lang='fr' id='SavePage'		>Sauver cette page</msg>
+	<msg xml:lang='fr' id='PreviewPage'		>Previsualiser la page</msg>
+	<msg xml:lang='fr' id='NeedComment'		>Entrez une description de votre modification</msg>
+	
+</messages>
