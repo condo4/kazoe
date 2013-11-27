@@ -18,8 +18,7 @@ tinymce.init({
 	extended_valid_elements: "table[class=table|border:0|width=100%]",
 	filemanager_title:"Choisir le fichier" ,
 	external_filemanager_path:"/kazoe/lib/filemanager/",
-	external_plugins: { "filemanager" : "../filemanager/plugin.min.js"},
-	external_plugins: { "youtube" : "../youtube/plugin.min.js"},
+	external_plugins: { "filemanager" : "../filemanager/plugin.min.js", "youtube" : "../youtube/plugin.min.js"},
 <?php
 	if(is_file($Kz->getPath('docroot').'/skin/'.$Kz->getEnv('SKIN')."/css/editor.css"))
 	{
