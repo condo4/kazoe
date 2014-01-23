@@ -7,17 +7,17 @@
 	
 	<field name="date_input">
 		<legend xml:lang="fr">Date de l'article</legend>
-		<widget_date default="now" range="-2 year; now" />
+		<widget_date default="now" range="-5 year; now" />
 	</field>
 	
 	<field name="date_begin">
 		<legend xml:lang="fr">Date de parution</legend>
-		<widget_date default="now" range="now; +1 year" />
+		<widget_date default="now" range="now; +2 year" />
 	</field>
 
 	<field name="date_expire">
 		<legend xml:lang="fr">Date d'expiration</legend>
-		<widget_date default="+2 month" range="now; +1 year" />
+		<widget_date default="+2 month" range="now; +5 year" />
 	</field>
 
 	<field name="type">
