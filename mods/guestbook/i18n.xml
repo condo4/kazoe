@@ -4,4 +4,6 @@
 	<msg xml:lang='en' id='Intro'			>Thank you for all messages.</msg>
 	<msg xml:lang='en' id='MailTag'			>[Guestbook]</msg>
 	<msg xml:lang='en' id='MailIntro'		>Message sent from guestbook</msg>
+	<msg xml:lang='en' id='MailIntroNot'	>Message left from guestbook</msg>
+	<msg xml:lang='en' id='NewNotify'		>New message</msg>
 </messages>

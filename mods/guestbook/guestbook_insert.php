@@ -29,23 +29,32 @@ $cryptinstall="kazoe/lib/crypt/cryptographp.fct.php";
 include $cryptinstall;
 
 if (chk_crypt($_POST['cryptogramme']))  {
-    $nom =      $Kz->getPostText("name");
-    $email =    $Kz->getPostText("email");
-    $resume =   $Kz->getPostText("resume");
-    if($email=="") $email = null;
+	$name =      $Kz->getPostText("name");
+	$email =    $Kz->getPostText("email");
+	$resume =   $Kz->getPostText("resume");
+	if($email=="") $email = null;
 
-    $sql = $Kz->db_query(
-        "INSERT INTO :{apptable} (name,email,date_input,lang,comment) VALUES (:NOM,:MAIL,NOW(),:LNG,:RESUME)",
-        array(
-            'NOM'           => $nom,
-            'MAIL'          => $email,
-            'RESUME'        => $resume,
-            'LNG'           => $Kz->getEnv('LANG')
-        )
-    );
-    if (!$sql->execute()) throw new Exception($Kz->db_error($sql));
-    echo "<a class='action_result'>".$Kz->getText('InsertSuccess')."</a><br />";
-    $Kz->uncache();
+	$sql = $Kz->db_query(
+		"INSERT INTO :{apptable} (name,email,date_input,lang,comment) VALUES (:NAME,:MAIL,NOW(),:LNG,:RESUME)",
+		array(
+			'NAME'          => $name,
+			'MAIL'          => $email,
+			'RESUME'        => $resume,
+			'LNG'           => $Kz->getEnv('LANG')
+		)
+	);
+	if (!$sql->execute()) throw new Exception($Kz->db_error($sql));
+	echo "<a class='action_result'>".$Kz->getText('InsertSuccess')."</a><br />";
+	$Kz->uncache();
+
+	$mailheader  ='MIME-Version: 1.0'."\r\n";
+	$mailheader .='From: "'.$name.'"<'.$Kz->getConfig("//webmaster_email").'>'."\r\n";
+	$mailheader .='Content-Type: text/plain; charset="utf-8"'."\r\n";
+	$mailheader .='Content-Transfer-Encoding: 8bit'."\r\n"; 
+	$mailheader .='Bcc: spc_sendmail@kazoe.org';
+
+	$compose = str_replace('\\\'','\'',$Kz->getText('MailIntroNot')." :\n".$resume."\n\n".$name."\n".$email);
+	mail($Kz->getConfig("//webmaster_email"), ($Kz->getText('MailTag').$Kz->getText('NewNotify')), $compose, $mailheader);
 }
 else {
     echo "<em>".$Kz->getText('Forbidden')."</em><br />\n";
