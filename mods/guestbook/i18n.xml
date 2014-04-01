@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <messages>
-	<msg xml:lang='en' id='TakeMsg'			>Take a message on the Guestbook</msg>
-	<msg xml:lang='en' id='Intro'			>Thank you for all messages.</msg>
+	<msg xml:lang='fr' id='PageTitle'		>Livre d'or</msg>
+	<msg xml:lang='it' id='PageTitle'		>Libro d'oro</msg>
+	<msg xml:lang='en' id='PageTitle'		>Guest book</msg>
+	
+	<msg xml:lang='fr' id='ConfirmDelete'	>Êtes vous sûr de vouloir supprimer ce message ?</msg>
+	<msg xml:lang='en' id='ConfirmDelete'	>Are you sur ?</msg>
+
 	<msg xml:lang='en' id='MailTag'			>[Guestbook]</msg>
+	
+	<msg xml:lang='en' id='TakeMsg'			>Take a message on the Guestbook</msg>
+	<msg xml:lang='fr' id='TakeMsg'			>Laissez vous aussi votre message sur le livre d'or</msg>
+	
+	<msg xml:lang='en' id='Intro'			>Thank you for all messages.</msg>
+	<msg xml:lang='fr' id='Intro'			>Merci pour toutes vos remarques.</msg>
+
 	<msg xml:lang='en' id='MailIntro'		>Message sent from guestbook</msg>
+	
 	<msg xml:lang='en' id='MailIntroNot'	>Message left from guestbook</msg>
+	
 	<msg xml:lang='en' id='NewNotify'		>New message</msg>
+	<msg xml:lang='fr' id='NewNotify'		>Nouveau message</msg>
 </messages>
