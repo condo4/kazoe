@@ -604,16 +604,33 @@ class KData {
 		if($res != "") return $res;
 		$res = $this->getTextFromFile($mid,$this->getEnv('PAGEPATH').'/i18n.xml',$this->getEnv('LANG'));
 		if($res != "") return $res;
+		$res = $this->getTextFromFile($mid,$this->getEnv('MODPATH' ).'/i18n.xml',$this->getEnv('LANG'));
+		if($res != "") return $res;
 		$res = $this->getTextFromFile($mid,$_SERVER['DOCUMENT_ROOT']."/kazoe/bin/i18n.xml",$this->getEnv('LANG'));
 		if($res != "") return $res;
+
 		$res = $this->getTextFromFile($mid,$_SERVER['DOCUMENT_ROOT']."/root/etc/i18n.xml",$this->getEnv('LANG_DEF'));
 		if($res != "") return $res;
 		$res = $this->getTextFromFile($mid,$_SERVER['DOCUMENT_ROOT'].'/skin/'.$this->getEnv('SKIN').'/i18n.xml',$this->getEnv('LANG_DEF'));
 		if($res != "") return $res;
 		$res = $this->getTextFromFile($mid,$this->getEnv('PAGEPATH').'/i18n.xml',$this->getEnv('LANG_DEF'));
 		if($res != "") return $res;
+		$res = $this->getTextFromFile($mid,$this->getEnv('MODPATH' ).'/i18n.xml',$this->getEnv('LANG_DEF'));
+		if($res != "") return $res;
 		$res = $this->getTextFromFile($mid,$_SERVER['DOCUMENT_ROOT']."/kazoe/bin/i18n.xml",$this->getEnv('LANG_DEF'));
 		if($res != "") return $res;
+
+		$res = $this->getTextFromFile($mid,$_SERVER['DOCUMENT_ROOT']."/root/etc/i18n.xml","en");
+		if($res != "") return $res;
+		$res = $this->getTextFromFile($mid,$_SERVER['DOCUMENT_ROOT'].'/skin/'.$this->getEnv('SKIN').'/i18n.xml',"en");
+		if($res != "") return $res;
+		$res = $this->getTextFromFile($mid,$this->getEnv('PAGEPATH').'/i18n.xml',"en");
+		if($res != "") return $res;
+		$res = $this->getTextFromFile($mid,$this->getEnv('MODPATH' ).'/i18n.xml',"en");
+		if($res != "") return $res;
+		$res = $this->getTextFromFile($mid,$_SERVER['DOCUMENT_ROOT']."/kazoe/bin/i18n.xml","en");
+		if($res != "") return $res;
+
 		if($errorOneFail) throw new Exception("Unknown message \"".$mid."\"");
 		return "";
 	}

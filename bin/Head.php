@@ -71,6 +71,17 @@ class Head{
 		if(!$XPath_XmlXpage->registerNamespace('xml','http://www.w3.org/XML/1998/namespace'))    throw new Exception("Impossible to register xml namespace for ".$fileXpage);
 		if(!$XPath_XmlXpage->registerNamespace('xp','http://kazoe.org.free.fr/xsd/Xpages.xsd'))  throw new Exception("Impossible to register xp namespace for ".$fileXpage);
 		
+		$import = $XPath_XmlXpage->query('//xp:import');
+		if($import->length > 0)
+		{
+			$src = $XPath_XmlXpage->query('//xp:import/@src');
+			$apptable = $XPath_XmlXpage->query('//xp:import/@apptable')->item(0)->nodeValue;
+			$this->kz->setEnv("APPTABLE",$apptable);
+			$modname = $src->item(0)->nodeValue;
+			$modpath = 'kazoe/mods/'.$modname.'/';
+			$this->kz->setEnv('MODPATH',$modpath);
+		}
+		
 		$node = $XPath_XmlXpage->query('//xp:title[@xml:lang=\''.$this->kz->getEnv('LANG').'\']');
 		if($node->length > 0) $titleval = $node->item(0)->nodeValue;
 		else {
