@@ -34,6 +34,9 @@ session_start();
  */
 header("Content-Type: text/html; charset= UTF-8");
 
+
+libxml_disable_entity_loader(false);
+
 /*
  * Initialize all globals
  */
