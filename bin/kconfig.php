@@ -36,6 +36,8 @@ function __autoload($class_name) {
     include $_SERVER['DOCUMENT_ROOT'].'/kazoe/bin/'.$class_name . '.php';
 }
 
+libxml_disable_entity_loader(false);
+
 $conf = new DOMDocument();
 $conf->load($_SERVER['DOCUMENT_ROOT'].'/root/etc/configurations.xml');
 $xconf = new DOMXpath($conf);
