@@ -26,8 +26,8 @@
 
 if ($Kz->canDo('section'))
 {
-	$pass1 = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["password1"])):($_REQUEST["password1"]);
-	$pass2 = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["password2"])):($_REQUEST["password2"]);
+	$pass1 = $_REQUEST["password1"];
+	$pass2 = $_REQUEST["password2"];
 	if($pass1 == $pass2) $valid = True;
 	else $valid = False;
 	$password = sha1($pass1);

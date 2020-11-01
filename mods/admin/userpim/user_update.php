@@ -26,15 +26,17 @@
 
 if ($Kz->canDo('section'))
 {
-    $name = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["name"])):($_REQUEST["name"]);
-    $firstname = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["firstname"])):($_REQUEST["firstname"]);
-    $email = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["email"])):($_REQUEST["email"]);
-    $address = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["address"])):($_REQUEST["address"]);
-    $phone = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["phone"])):($_REQUEST["phone"]);
+    $name = $_REQUEST["name"];
+    $firstname = $_REQUEST["firstname"];
+    $email = $_REQUEST["email"];
+    $address = $_REQUEST["address"];
+    echo("YUPI");
+    var_dump($address);
+    $phone = $_REQUEST["phone"];
     if($phone == "") $phone = null;
-    $mobile = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["mobile"])):($_REQUEST["mobile"]);
+    $mobile = $_REQUEST["mobile"];
     if($mobile == "") $mobile = null;
-    $functions = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["functions"])):($_REQUEST["functions"]);
+    $functions = $_REQUEST["functions"];
 
     $sql = $Kz->db_query(
         "UPDATE kazoe_users SET name=:NAME, firstname=:FIRSTNAME, email=:EMAIL, address=:ADDRESS, phone=:PHONE, mobile=:MOBILE, functions=:FUNCTIONS WHERE _passwd=:USER_LOGIN",

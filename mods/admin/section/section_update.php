@@ -27,7 +27,7 @@
 if ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))
 {
 	$id = $_REQUEST["id"];
-	$name = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["name"])):($_REQUEST["name"]);
+	$name = $_REQUEST["name"];
 
 	$sql = $Kz->db_query(
 		"UPDATE kazoe_sections SET name=:NAME WHERE id=:ID",

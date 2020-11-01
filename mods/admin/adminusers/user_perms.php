@@ -31,7 +31,7 @@ if ($Kz->canDo('section[@id=\':{base}\']/action[@id=\'mod\']'))
 	$node = $parent->importNode($parent_node,True);
 	$parent->appendChild($node);
 	$xparent = new DOMXpath($parent);
-	$id = (get_magic_quotes_gpc())?(stripslashes($_REQUEST["id"])):($_REQUEST["id"]);
+	$id = $_REQUEST["id"];
 
 	$sql = $Kz->db_query(
 		"SELECT _properties FROM kazoe_passwd WHERE id=:ID",

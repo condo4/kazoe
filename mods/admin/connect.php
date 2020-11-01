@@ -36,8 +36,8 @@ else {
 }
 
 if ($valid)  {
-	$login =      (get_magic_quotes_gpc())?(stripslashes($_REQUEST["login"])):($_REQUEST["login"]);
-	$password =    (get_magic_quotes_gpc())?(stripslashes($_REQUEST["password"])):($_REQUEST["password"]);
+	$login =      $_REQUEST["login"];
+	$password =   $_REQUEST["password"];
 	$sql = $Kz->db_query(
 		"SELECT count(*) AS nb FROM kazoe_passwd WHERE login = :LOGIN AND passwords = :PASSWORD",
 		array(

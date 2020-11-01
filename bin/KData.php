@@ -780,9 +780,9 @@ class KData {
 	
 	public function getPostText($id,$striptags=true){
 		if($striptags){
-			return strip_tags((get_magic_quotes_gpc())?(stripslashes($_POST[$id])):($_POST[$id]));
+			return strip_tags($_POST[$id]);
 		}
-		return (get_magic_quotes_gpc())?(stripslashes($_POST[$id])):($_POST[$id]);
+		return $_POST[$id];
 	}
 	
 	public function getPostDate($id){
