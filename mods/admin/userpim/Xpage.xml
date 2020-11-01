@@ -28,7 +28,7 @@
  -->
     <title xml:lang="fr">Mes données personnelles</title>
         <!-- We authorize MOD action, formular is completed, we send result to database, and continue -->
-    <ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY') == 'submit_mod') &amp;&amp; $Kz->canDo('section[@id=\'authorizations\']')">
+    <ContentPhp history='no' continue="yes" test="($Kz->getEnv('QUERY') == 'submit_mod') &amp;&amp; $Kz->canDo('section')">
         <namefile>user_update</namefile>
         <mode>mod</mode>
     </ContentPhp>
