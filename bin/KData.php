@@ -412,7 +412,7 @@ class KData {
 		$key_need = array();
 		preg_match_all($regex ,$query,$key_need);
 		foreach($key_need[0] as $key){
-			if(count($key) > 0){
+			if(strlen($key) > 0){
 				$key = str_replace(":","",$key);
 				if(array_key_exists($key,$param)){
 					$pdo_statement->bindParam(':'.$key,$param[$key]);
