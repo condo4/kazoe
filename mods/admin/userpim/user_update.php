@@ -30,8 +30,6 @@ if ($Kz->canDo('section'))
     $firstname = $_REQUEST["firstname"];
     $email = $_REQUEST["email"];
     $address = $_REQUEST["address"];
-    echo("YUPI");
-    var_dump($address);
     $phone = $_REQUEST["phone"];
     if($phone == "") $phone = null;
     $mobile = $_REQUEST["mobile"];
