@@ -88,12 +88,15 @@ class KData {
 	}
 	
 	
-	public function addJsScript($script){
+	public function addJsScript($script, $referrerpolicy=""){
 		if($this->headers != null && $this->template != null)
 		{
 			$XmlHead_script =  $this->template->createElement("script");
 			$XmlHead_script->setAttribute('src',$script);
 			$XmlHead_script->setAttribute('type','text/javascript');
+			if( $referrerpolicy != "" ){
+				$XmlHead_script->setAttribute('referrerpolicy',$referrerpolicy);
+			}
 			$this->headers->appendChild($XmlHead_script);
 		}
 	}

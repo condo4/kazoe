@@ -149,7 +149,7 @@ class ContentStatic {
 			$node = $XmlData->importNode($src->firstChild,true);
 			$XmlData_body->appendChild($node);
 			
-			$this->kdata->addJsScript('kazoe/lib/tinymce/tinymce.min.js');
+			$this->kdata->addJsScript('kazoe/lib/tinymce/tinymce.min.js', 'origin');
 			$this->kdata->addJsScript('kazoe/lib/tinymce_config.php');
 
 		}
