@@ -12,19 +12,19 @@ tinymce.init({
 	plugins: [
 		"advlist autolink link image lists charmap print preview hr anchor pagebreak",
 		"wordcount visualblocks visualchars code fullscreen insertdatetime nonbreaking",
-		"table contextmenu directionality paste textcolor responsivefilemanager youtube"
+		"table contextmenu directionality paste textcolor responsivefilemanager"
 	],
 	image_advtab: false,
 	extended_valid_elements: "table[class=table|border:0|width=100%]",
 	filemanager_title:"Choisir le fichier" ,
 	external_filemanager_path:"/kazoe/lib/filemanager/",
-	external_plugins: { "filemanager" : "../filemanager/plugin.min.js", "youtube" : "../youtube/plugin.min.js"},
+	external_plugins: { "filemanager" : "/kazoe/lib/ResponsiveFilemanager_9.14.0/tinymce/plugins/responsivefilemanager/plugin.min.js"},
 <?php
 	if(is_file($Kz->getPath('docroot').'/skin/'.$Kz->getEnv('SKIN')."/css/editor.css"))
 	{
 		echo "\tcontent_css : \"/skin/".$Kz->getEnv('SKIN')."/css/editor.css\",\n";
 	}
 ?>
-	toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table tablecontrols | link unlink anchor image youtube | fullpage <?php if($Kz->getEnv('USER_ID') == 0) echo 'code'; ?>"
+	toolbar: "undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | table tablecontrols | link unlink anchor image responsivefilemanager | preview fullpage <?php if($Kz->getEnv('USER_ID') == 0) echo 'code'; ?>"
 	
 });
