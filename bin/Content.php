@@ -84,12 +84,15 @@ class Content {
 			if (!$sql->execute()) throw new Exception($this->kz->db_error($sql));
 
 			$section = $sql->fetch();
-			$section = $section[0];
-			$this->title = $this->title.' : '.$section;
-			$XmlData_Section = $XmlData->createElement("section");
-			$XmlData_Section_value = $XmlData->createTextNode($section);
-			$XmlData_Section->appendChild($XmlData_Section_value);
-			$XmlData_Root->appendChild($XmlData_Section);
+                        if($section != false)
+                        {
+				$section = $section[0];
+				$this->title = $this->title.' : '.$section;
+				$XmlData_Section = $XmlData->createElement("section");
+				$XmlData_Section_value = $XmlData->createTextNode($section);
+				$XmlData_Section->appendChild($XmlData_Section_value);
+				$XmlData_Root->appendChild($XmlData_Section);
+			}
 		}
 		$nbmax = 0;
 		$nbreal = 0;
