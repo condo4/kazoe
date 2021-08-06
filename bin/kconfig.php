@@ -32,9 +32,11 @@ ini_set('log_errors','On');
 ini_set('warn_plus_overloading','On');
 ini_set('magic_quotes_gpc', 0);
 
-function __autoload($class_name) {
+function my_autoload($class_name) {
     include $_SERVER['DOCUMENT_ROOT'].'/kazoe/bin/'.$class_name . '.php';
 }
+
+spl_autoload_register('my_autoload');
 
 libxml_disable_entity_loader(false);
 
